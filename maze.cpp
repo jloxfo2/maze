@@ -86,41 +86,41 @@ void SquareMaze::makeMazeHelper(int x, int y)
     
       for (int i=0; i<4; ++i) {
 
-	       int random = (randomNeighbor + i) % 4;
+	  int random = (randomNeighbor + i) % 4;
     
-	       if ( (random == 0) && isGood(x+1, y) ) {
-	            setWall(x, y, 0, false);
-		          cellDSet.setunion(initialCellNum, grid[x+1][y].cellNumber);
-		          cellStack.push( pair<int, int>(x+1, y) );
-		          checkedAllFlag = true;
-		          break;
-	        }
-	        else if ( (random == 1) && isGood(x, y+1) ) {
-	            setWall(x, y, 1, false);
-		          cellDSet.setunion(initialCellNum, grid[x][y+1].cellNumber);
-	            cellStack.push( pair<int, int>(x, y+1) );
-		          checkedAllFlag = true;
-		          break;
-	        }
-	        else if ( (random == 2) && isGood(x-1, y) ) {
-	            setWall(x-1, y, 0, false);
-		          cellDSet.setunion(initialCellNum, grid[x-1][y].cellNumber);
-	            cellStack.push( pair<int, int>(x-1, y) );
-		          checkedAllFlag = true;
-		          break;
-	        }
-	        else if ( (random == 3) && isGood(x, y-1) ) {
-	            setWall(x, y-1, 1, false);
-		          cellDSet.setunion(initialCellNum, grid[x][y-1].cellNumber);
-	            cellStack.push( pair<int, int>(x, y-1) );
-		          checkedAllFlag = true;
-		          break;
-	        }
-	      }
+	  if ( (random == 0) && isGood(x+1, y) ) {
+		setWall(x, y, 0, false);
+	        cellDSet.setunion(initialCellNum, grid[x+1][y].cellNumber);
+	        cellStack.push( pair<int, int>(x+1, y) );
+	        checkedAllFlag = true;
+	        break;
+	  }
+	  else if ( (random == 1) && isGood(x, y+1) ) {
+	        setWall(x, y, 1, false);
+	        cellDSet.setunion(initialCellNum, grid[x][y+1].cellNumber);
+	        cellStack.push( pair<int, int>(x, y+1) );
+		checkedAllFlag = true;
+		break;
+	  }
+	  else if ( (random == 2) && isGood(x-1, y) ) {
+	  	setWall(x-1, y, 0, false);
+	        cellDSet.setunion(initialCellNum, grid[x-1][y].cellNumber);
+	        cellStack.push( pair<int, int>(x-1, y) );
+		checkedAllFlag = true;
+		break;
+	  }
+	  else if ( (random == 3) && isGood(x, y-1) ) {
+	  	setWall(x, y-1, 1, false);
+		cellDSet.setunion(initialCellNum, grid[x][y-1].cellNumber);
+	        cellStack.push( pair<int, int>(x, y-1) );
+		checkedAllFlag = true;
+		break;
+	  }
+	}
 
-	      if (!checkedAllFlag) {
-	        cellStack.pop();
-	      }
+	if (!checkedAllFlag) {
+	    cellStack.pop();
+	}
   }
 
   
