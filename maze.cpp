@@ -190,27 +190,27 @@ bool SquareMaze::canTravel(int x, int y, int dir) const
 {
   if (dir == 0) {
       if ( ((x+1) < 0) || ((x+1) >= mazeWidth) )
-	        return false;
+          return false;
       if (grid[x][y].hasRightWall)
-	        return false;
+      	  return false;
   }
   else if (dir == 1) {
       if ( ((y+1) < 0) || ((y+1) >= mazeHeight) )
-	        return false;
+          return false;
       if (grid[x][y].hasDownWall)
-	        return false;
+	  return false;
   }
   else if (dir == 2) {
       if ( ((x-1) < 0) || ((x-1) >= mazeWidth) )
-	        return false;
+	  return false;
       if (grid[x-1][y].hasRightWall)
           return false;
   }
   else if (dir == 3) {
       if ( ((y-1) < 0) || ((y-1) >= mazeHeight) )
-	        return false;
+          return false;
       if (grid[x][y-1].hasDownWall)
-	        return false;
+          return false;
   }
 
   
@@ -266,45 +266,45 @@ std::vector<int> SquareMaze::solveMaze()
       // and can be traveled to, then push the first one on the stack and repeat 
       // this check on the next loop iteration.
       if (canTravel(x, y, 0) && !visited(x+1, y, visitedCells)) {
-	        cellStack.push( pair<int, int>(x+1, y) );
-	        path.push_back(0);
+          cellStack.push( pair<int, int>(x+1, y) );
+          path.push_back(0);
       }
       else if (canTravel(x, y, 1) && !visited(x, y+1, visitedCells)) {
-	        cellStack.push( pair<int, int> (x, y+1) );
-	        path.push_back(1);
+          cellStack.push( pair<int, int> (x, y+1) );
+          path.push_back(1);
       }
       else if (canTravel(x, y, 2) && !visited(x-1, y, visitedCells)) {
-	        cellStack.push( pair<int, int>(x-1, y) );
-	        path.push_back(2);
+          cellStack.push( pair<int, int>(x-1, y) );
+          path.push_back(2);
       }
       else if (canTravel(x, y, 3) && !visited(x, y-1, visitedCells)) {
-	        cellStack.push( pair<int, int>(x, y-1) );
-	        path.push_back(3);
+          cellStack.push( pair<int, int>(x, y-1) );
+          path.push_back(3);
       }
       else {
-	        // if current cell is on bottom row and x-coord is less than
-	        //smallest, check if current path is greater than longest path
-	        if ( y == mazeHeight - 1 ) {
-	            if (longestPath.size() == 0) {
-		              // checks case if longestPath hasn't been initialized (size=0)
-		              longestPath = path;
-		              longestPathX = x;
-	            }
-	            else if (path.size() > longestPath.size()) {
-		              longestPath = path;
-		              longestPathX = x;
-	            }
-	            else if (path.size() == longestPath.size() && x < longestPathX) {
-		              longestPath = path;
-		              longestPathX = x;
-	            }
-	        }
+          // if current cell is on bottom row and x-coord is less than
+          //smallest, check if current path is greater than longest path
+          if ( y == mazeHeight - 1 ) {
+              if (longestPath.size() == 0) {
+                  // checks case if longestPath hasn't been initialized (size=0)
+                  longestPath = path;
+                  longestPathX = x;
+              }
+              else if (path.size() > longestPath.size()) {
+                  longestPath = path;
+                  longestPathX = x;
+	      }
+              else if (path.size() == longestPath.size() && x < longestPathX) {
+                  longestPath = path;
+                  longestPathX = x;
+              }
+          }
 
-	        // pop the current path & cell, then iterate next cell for new paths
-	        cellStack.pop();
-	        if (path.size() != 0)
-	            // check because stack.size = (vector.size + 1) -- off by 1
-	            path.pop_back();
+	  // pop the current path & cell, then iterate next cell for new paths
+	  cellStack.pop();
+	  if (path.size() != 0)
+	      // check because stack.size = (vector.size + 1) -- off by 1
+	      path.pop_back();
       }
   }
 
@@ -358,7 +358,7 @@ PNG * SquareMaze::drawMaze() const
   
   for (int i=0; i < mazeWidth; ++i) {
       for (int j=0; j < mazeHeight; ++j) {
-	        drawWall(i, j, output);
+          drawWall(i, j, output);
       }
   }
   
@@ -382,7 +382,7 @@ void SquareMaze::drawWall(int x, int y, PNG * output) const
   
   if (grid[x][y].hasDownWall) {
       for (int i=0; i<11; ++i) {
-	        (*output)(x*10 + i, (y+1)*10)->red = 0;
+          (*output)(x*10 + i, (y+1)*10)->red = 0;
           (*output)(x*10 + i, (y+1)*10)->green = 0;
           (*output)(x*10 + i, (y+1)*10)->blue = 0;
       }
@@ -411,53 +411,53 @@ PNG * SquareMaze::drawMazeWithSolution()
   // loop through every direction in path; draw red line in appropriate direction
   for (size_t i=0; i < solutionPath.size(); ++i) {
       if (solutionPath[i] == 0) {
-	      for (int j=0; j<11; ++j) {
-	         (*output)(x+j, y)->red = 255;
-	         (*output)(x+j, y)->green = 0;
-	         (*output)(x+j, y)->blue = 0;
-	      }
+          for (int j=0; j<11; ++j) {
+              (*output)(x+j, y)->red = 255;
+	      (*output)(x+j, y)->green = 0;
+	      (*output)(x+j, y)->blue = 0;
+	  }
 
-	      x += 10;
-	      exitXCoord++;
+      x += 10;
+      exitXCoord++;
       }
       else if (solutionPath[i] == 1) {
-	      for (int j=0; j<11; ++j) {
-	          (*output)(x, y+j)->red = 255;
-	          (*output)(x, y+j)->green = 0;
-	          (*output)(x, y+j)->blue = 0;
-	      }
+          for (int j=0; j<11; ++j) {
+              (*output)(x, y+j)->red = 255;
+              (*output)(x, y+j)->green = 0;
+              (*output)(x, y+j)->blue = 0;
+          }
 
-	      y += 10;
-	      exitYCoord++;
+      y += 10;
+      exitYCoord++;
       }
       else if (solutionPath[i] == 2) {
-	      for (int j=0; j<11; ++j) {
-	          (*output)(x-j, y)->red = 255;
-	          (*output)(x-j, y)->green = 0;
-	          (*output)(x-j, y)->blue = 0;
-	      }
+          for (int j=0; j<11; ++j) {
+              (*output)(x-j, y)->red = 255;
+              (*output)(x-j, y)->green = 0;
+              (*output)(x-j, y)->blue = 0;
+          }
 
-	      x -= 10;
-	      exitXCoord--;
+          x -= 10;
+          exitXCoord--;
       }
       else if (solutionPath[i] == 3) {
-	      for (int j=0; j<11; ++j) {
-	          (*output)(x, y-j)->red = 255;
-	          (*output)(x, y-j)->green = 0;
-	          (*output)(x, y-j)->blue = 0;
-	      }
+          for (int j=0; j<11; ++j) {
+              (*output)(x, y-j)->red = 255;
+              (*output)(x, y-j)->green = 0;
+              (*output)(x, y-j)->blue = 0;
+          }
 
-	      y -= 10;
-	      exitYCoord--;
+          y -= 10;
+          exitYCoord--;
       }
   }
 
 
   // remove wall for the maze exit
   for (int k=1; k <10; ++k) {
-    (*output)(exitXCoord*10 + k, (exitYCoord+1)*10)->red = 255;
-    (*output)(exitXCoord*10 + k, (exitYCoord+1)*10)->green = 255;
-    (*output)(exitXCoord*10 + k, (exitYCoord+1)*10)->blue = 255;
+      (*output)(exitXCoord*10 + k, (exitYCoord+1)*10)->red = 255;
+      (*output)(exitXCoord*10 + k, (exitYCoord+1)*10)->green = 255;
+      (*output)(exitXCoord*10 + k, (exitYCoord+1)*10)->blue = 255;
   }
   
   return output;
