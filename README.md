@@ -1,2 +1,2 @@
 # maze
-Generates and solves a maze
+Generates and solves a random maze
