@@ -116,11 +116,12 @@ void SquareMaze::makeMazeHelper(int x, int y)
 		checkedAllFlag = true;
 		break;
 	  }
-	}
-
-	if (!checkedAllFlag) {
-	    cellStack.pop();
-	}
+      	
+      }
+      
+      if (!checkedAllFlag) {
+	  cellStack.pop();
+      }
   }
 
   
